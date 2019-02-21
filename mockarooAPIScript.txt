@@ -1,0 +1,4 @@
+schema "ageIncome"
+set "annual_income", min: params['min_income'], max: params['max_income']
+set "age", min: params['min_age'], max: params['max_age']
+generate 100

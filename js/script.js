@@ -60,7 +60,6 @@ $.ajax({
 })
 
 function getData(){
-    console.log('https://my.api.mockaroo.com/ageincome2.json?key='+mockarooKey+'&min_income='+minIncome+'&max_income='+maxIncome+'&min_age='+minAge+'&max_age='+maxAge)
     $.ajax({
         url: 'https://my.api.mockaroo.com/ageincome2.json?key='+mockarooKey+'&min_income='+minIncome+'&max_income='+maxIncome+'&min_age='+minAge+'&max_age='+maxAge+"&count=100",
         dataType: 'json',
