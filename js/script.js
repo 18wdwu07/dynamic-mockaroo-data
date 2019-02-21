@@ -2,6 +2,48 @@ google.charts.load('current', {'packages':['corechart']});
 var mockarooKey;
 var minIncome = 100;
 var maxIncome = 200;
+var minAge = 10;
+var maxAge = 100;
+
+$( function() {
+  $( "#slider-range" ).slider({
+    range: true,
+    min: 0,
+    max: 100000,
+    values: [ 10000, 50000 ],
+    slide: function( event, ui ) {
+      $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      minIncome = ui.values[ 0 ];
+      maxIncome = ui.values[ 1 ];
+
+  },
+  stop:function(event, ui){
+      getData();
+  }
+  });
+
+  $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+    $( "#slider-range2" ).slider({
+      range: true,
+      min: 0,
+      max: 100,
+      values: [ 10, 90 ],
+      slide: function( event, ui ) {
+        $( "#age" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        minAge = ui.values[ 0 ];
+        maxAge = ui.values[ 1 ];
+
+    },
+    stop:function(event, ui){
+        getData();
+    }
+    });
+
+    $( "#age" ).val( $( "#slider-range2" ).slider( "values", 0 ) +
+      " - " + $( "#slider-range2" ).slider( "values", 1 ) );
+} );
 
 $.ajax({
     url: 'config.json',
@@ -18,8 +60,9 @@ $.ajax({
 })
 
 function getData(){
+    console.log('https://my.api.mockaroo.com/ageincome2.json?key='+mockarooKey+'&min_income='+minIncome+'&max_income='+maxIncome+'&min_age='+minAge+'&max_age='+maxAge)
     $.ajax({
-        url: 'https://my.api.mockaroo.com/ageincome2.json?key='+mockarooKey+'&min_income='+minIncome+'&max_income='+maxIncome,
+        url: 'https://my.api.mockaroo.com/ageincome2.json?key='+mockarooKey+'&min_income='+minIncome+'&max_income='+maxIncome+'&min_age='+minAge+'&max_age='+maxAge+"&count=100",
         dataType: 'json',
         type: 'get',
         success:function(data){
